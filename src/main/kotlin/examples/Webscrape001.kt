@@ -1,3 +1,4 @@
+
 package examples
 
 import org.openrndr.application
@@ -31,8 +32,9 @@ fun main() = application {
         val imdbExludeImages = listOf("https://m.media-amazon.com/images/G")
         val cnnExcludeImages = listOf("https://dynaimage.c11dn.cnn.com/cnn/e_blur:500,q_auto:low,w_50,c_fill,g_auto,h_28,ar_16:9")
         //val page = scrapeWebsite("https://www.imdb.com/title/tt2527338", 4, imdbExludeImages)
-        //val page = scrapeWebsite("https://www.imdb.com/title/tt0120338", excludeImages = imdbExludeImages)
-        val page = scrapeWebsite("https://edition.cnn.com/travel/article/disneyland-star-wars-galaxys-edge-preview/index.html", 20, excludeImages = cnnExcludeImages)
+        val page = scrapeWebsite("https://www.eurosport.com",excludeImages = imdbExludeImages)
+        //
+        // val page = scrapeWebsite("https://edition.cnn.com/travel/article/disneyland-star-wars-galaxys-edge-preview/index.html", 20, excludeImages = cnnExcludeImages)
 
         println(page.title)
         println(page.body)

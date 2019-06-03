@@ -69,7 +69,7 @@ dependencies {
     //compile "com.github.openrndr.orx:orx-kdtree:v$orxVersion"
     //compile "com.github.openrndr.orx:orx-mesh-generators:v$orxVersion"
     //compile "com.github.openrndr.orx:orx-midi:v$orxVersion"
-    //compile "com.github.openrndr.orx:orx-no-clear:v$orxVersion"
+    compile "com.github.openrndr.orx:orx-no-clear:v$orxVersion"
     compile "com.github.openrndr.orx:orx-noise:v$orxVersion"
     //compile "com.github.openrndr.orx:orx-obj-loader:v$orxVersion"
 
