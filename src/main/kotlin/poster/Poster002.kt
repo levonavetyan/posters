@@ -24,7 +24,7 @@ fun main() = application {
     }
 
     program {
-        val image = loadImage("file:data/images/Adele Photoshop/adele10.jpg")
+        //val image = loadImage("file:data/images/Adele Photoshop/adele10.jpg")
 
         val images = mutableListOf<ColorBuffer>()
         val archive = File("data/archive/001")
