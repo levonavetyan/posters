@@ -145,8 +145,8 @@ fun main() = application {
                     drawer.fill = ColorRGBa.WHITE
                     val date = LocalDateTime.now()
                     drawer.translate(10.0, 10.0)
-                  //  drawer.text("Adele ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
-                  //  drawer.text("Rolling in the deep", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0 + 45.0)
+                    drawer.text("Imagine Dragons ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
+                    drawer.text("Thunder", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0 + 45.0)
 
                     //  drawer.text("${date.month.name} ${date.dayOfMonth}", 0.0, 280.0)
                     // drawer.text("${date.year}", 0.0, 360.0)

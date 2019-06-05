@@ -1,6 +1,8 @@
 
 package poster
 
+import org.openrndr.animatable.Animatable
+import org.openrndr.animatable.easing.Easing
 import org.openrndr.application
 import org.openrndr.color.ColorRGBa
 import org.openrndr.draw.ColorBuffer
@@ -28,7 +30,7 @@ fun main() = application {
         //val image = loadImage("file:data/images/Adele Photoshop/adele10.jpg")
 
         val images = mutableListOf<ColorBuffer>()
-        val archive = File("data/archive/003/Taylor")
+        val archive = File("data/archive/004/Taylor")
 
 
         var lastChange = seconds
@@ -41,8 +43,13 @@ fun main() = application {
                 images.add(image)
             }
         }
+        class Zoom: Animatable(){
+            var zooming = 0.0
+        }
 
+        val zoom = Zoom()
         val poster = compose {
+
 
             layer {
 
@@ -54,11 +61,11 @@ fun main() = application {
 //                  }
 
 
-                post(ZoomMosaic()) {
-                    this.xSteps = 32
-                    this.ySteps = 32
-                    this.scale = Math.cos(seconds) * 2
+                post(StepWaves()) {
 
+                    phase = 0.0* zoom.zooming
+                    amplitude = 0.1* zoom.zooming
+                    period = Math.PI * 4.0 * zoom.zooming
 
                 }
 
@@ -73,14 +80,13 @@ fun main() = application {
 
                       //  println("I am shuffling the images")
                         lastChange = seconds
-                        images.shuffle()
                     }
 
                     //drawer.fill = ColorRGBa.PINK
                     //
                     // drawer.drawStyle.colorMatrix = tint(ColorRGBa.PINK)
 
-                    drawer.scale(0.5)
+                    drawer.scale(1.0)
 
 
                     var index = 0
@@ -127,8 +133,8 @@ fun main() = application {
                     drawer.fill = ColorRGBa.WHITE
                     val date = LocalDateTime.now()
                     drawer.translate(10.0, 10.0)
-                    drawer.text("Adele ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
-                    drawer.text("Rolling in the deep", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0 + 45.0)
+                //    drawer.text("Adele ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
+                //    drawer.text("Rolling in the deep", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0 + 45.0)
 
                     //  drawer.text("${date.month.name} ${date.dayOfMonth}", 0.0, 280.0)
                     // drawer.text("${date.year}", 0.0, 360.0)
@@ -137,6 +143,16 @@ fun main() = application {
         }
 
         extend {
+            zoom.updateAnimation()
+
+            if (!zoom.hasAnimations()) {
+
+                zoom.animate("zooming", 1.0, 100, Easing.CubicIn)
+                zoom.complete()
+                zoom.animate("zooming", 0.0, 1000, Easing.CubicIn)
+                images.shuffle()
+
+            }
             poster.draw(drawer)
 
 
