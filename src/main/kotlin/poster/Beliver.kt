@@ -10,6 +10,8 @@ import org.openrndr.draw.FontImageMap
 import org.openrndr.draw.loadImage
 import org.openrndr.extra.compositor.*
 import org.openrndr.filter.blend.Add
+import org.openrndr.math.Vector2
+import org.openrndr.text.Writer
 import org.openrndr.workshop.toolkit.filters.*
 import java.io.File
 import java.time.LocalDateTime
@@ -30,14 +32,31 @@ fun main() = application {
 
         class Anim : Animatable() {
             var line = 0.0
-
-
             var dr = 0.0
             var db = 0.0
             var dg = 0.0
             var lr = 0.0
             var lg = 0.0
             var lb = 0.0
+        }
+
+        class Letter(val letter: String, var x: Double, var y: Double, val homeX: Double = x, val homeY: Double = y, var opacity:Double = 0.0) : Animatable()
+
+        val letters = mutableListOf<Letter>()
+
+        var x = 0.0
+        val font = FontImageMap.fromUrl("file:data/fonts/OpenSansCondensed-Bold.ttf", 144.0)
+
+        for (l in "BELIEVER") {
+            drawer.fontMap = font
+
+            val w = Writer(drawer)
+            val letterWidth = w.textWidth(l.toString())
+
+            letters.add(Letter(l.toString(), x, height / 2.0))
+
+            x += letterWidth
+            x += 30.0
 
 
         }
@@ -49,6 +68,7 @@ fun main() = application {
 
         //
 
+        var index = 0
         archive.listFiles().forEach {
             if (it.extension == "jpg" || it.extension == "png") {
                 val image = loadImage(it)
@@ -94,16 +114,10 @@ fun main() = application {
                     drawer.scale(1.0)
 
 
-                    var index = 0
-                    for (y in 0 until 2) {
-                        for (x in 0 until 2) {
-
-                            drawer.image(images[index], x * 600.0, y * 800.0)
-                            index++
-                        }
 
 
-                    }
+
+                    drawer.image(images[index%images.size])
 
 
                 }
@@ -116,7 +130,7 @@ fun main() = application {
 
 
                 draw {
-                    val font = FontImageMap.fromUrl("file:data/fonts/Rumeur/rumeur.otf", 32.0)
+                    val font = FontImageMap.fromUrl("file:data/fonts/OpenSansCondensed-Bold.ttf", 32.0)
                     drawer.fontMap = font
                     drawer.fill = ColorRGBa.WHITE
                     drawer.translate(10.0, 10.0)
@@ -127,11 +141,19 @@ fun main() = application {
 
 
                 draw {
-                    val font = FontImageMap.fromUrl("file:data/fonts/Rumeur/rumeur.otf", 46.0)
+                    val font = FontImageMap.fromUrl("file:data/fonts/OpenSansCondensed-Bold.ttf", 144.0)
                     drawer.fontMap = font
                     drawer.fill = ColorRGBa.WHITE
                     val date = LocalDateTime.now()
                     drawer.translate(10.0, 10.0)
+                    //drawer.text("BELIEVER", width/2.0, height/2.0)
+
+                    for (letter in letters) {
+                        drawer.fill = ColorRGBa.WHITE.opacify(letter.opacity)
+                        drawer.text(letter.letter, letter.x, letter.y)
+
+                    }
+
 //                    drawer.text("Ed Sheeran ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
 //                    drawer.text("Shape of you", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0 + 45.0)
 
@@ -143,26 +165,68 @@ fun main() = application {
 
         extend {
             anim.updateAnimation()
+
+            for (letter in letters) {
+                letter.updateAnimation()
+
+
+            }
+
             if (!anim.hasAnimations()) {
-                val duration = (Math.random() * 800 + 1200).toLong()
+                val duration = 4000L //(Math.random() * 800 + 1200).toLong()
                 anim.animate("line", 0.0, 0, Easing.CubicIn)
                 anim.complete()
                 anim.animate("line", 0.5, duration / 2, Easing.CubicIn)
 
 
+                var darkColor = ColorHSVa(Math.random() * 360.0, Math.random() * 0.3 + 0.4, Math.random() * 0.5 + 0.5).toRGBa()
+                var lightColor = darkColor.toHSVa().shiftHue((Math.random() - 0.5) * 40.0).scaleSaturation(0.7).scaleValue(1.1).toRGBa()
 
-                var darkColor = ColorHSVa(Math.random()*360.0, Math.random()*0.3+ 0.4, Math.random()*0.5+0.5).toRGBa()
-                var lightColor = darkColor.toHSVa().shiftHue((Math.random()-0.5)*40.0 ).scaleSaturation(0.7).scaleValue(1.1).toRGBa()
 
-
-                anim.animate("dr",darkColor.r, duration)
-                anim.animate("dg",darkColor.g, duration)
-                anim.animate("db",darkColor.b, duration)
+                anim.animate("dr", darkColor.r, duration)
+                anim.animate("dg", darkColor.g, duration)
+                anim.animate("db", darkColor.b, duration)
                 anim.animate("lr", lightColor.r, duration)
                 anim.animate("lg", lightColor.g, duration)
                 anim.animate("lb", lightColor.b, duration)
 
-                images.shuffle()
+
+                var letterIndex = 0
+                for (letter in letters) {
+
+                    letter.cancel()
+
+                    //letter.animate("x", Math.random()*width,  1000, Easing.CubicInOut)
+                    val d = Vector2(Math.random() * width, Math.random() * height) - Vector2(width / 2.0, height / 2.0)
+                    val dn = d.normalized
+                    val p = dn * 500.0 + Vector2(width / 2.0, height / 2.0)
+
+
+
+
+
+                    letter.animate("x", letter.homeX, 0)
+                    letter.animate("y", letter.homeY, 0)
+                    letter.animate("opacity", 0.0, 0)
+
+
+
+                    letter.delay(letterIndex*100L)
+                    letterIndex++
+                    letter.animate("opacity", 1.0, 400)
+
+                    //letter.animate("x", p.x, duration-1000, Easing.CubicOut)
+                    //letter.animate("y", p.y, duration-1000, Easing.CubicOut)
+
+                    letter.animate("x", Math.random() * width, duration - 1000, Easing.CubicInOut)
+
+                    letter.animate("y", Math.random() * height, duration - 1000, Easing.CubicInOut)
+                    letter.animate("dummy", 1.0, 1000000000, Easing.CubicInOut)
+
+
+                }
+
+                index++
 
             }
             anim.updateAnimation()
