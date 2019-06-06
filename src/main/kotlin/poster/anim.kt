@@ -48,8 +48,8 @@ fun main() {
 
             val font = FontImageMap.fromUrl("file:data/fonts/IBMPlexMono-Regular.ttf", 32.0)
 
-            extend(Screenshots())
-            extend(NoClear())
+          //  extend(Screenshots())
+          //  extend(NoClear())
             extend {
                 for (a in balls) {
                     a.next()
