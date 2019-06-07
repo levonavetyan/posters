@@ -118,15 +118,22 @@ fun main() = application {
             }
             layer {
 
+                post(ZoomMosaic()) {
+                    this.xSteps = 32
+                    this.ySteps = 32
+                    this.scale = Math.cos(seconds) * 2
 
+
+                }
                 draw {
-                    val font = FontImageMap.fromUrl("file:data/fonts/Rumeur/rumeur.otf", 46.0)
+                    val font = FontImageMap.fromUrl("file:data/fonts/Rumeur/rumeur.otf", 60.0)
                     drawer.fontMap = font
                     drawer.fill = ColorRGBa.WHITE
                     val date = LocalDateTime.now()
                     drawer.translate(10.0, 10.0)
-                    drawer.text("Adele ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
-                    drawer.text("Rolling in the deep", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0 + 45.0)
+                //    drawer.text("Adele ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
+                    drawer.text("Rolling in the deep", 30.0, 400.0)
+
 
                     //  drawer.text("${date.month.name} ${date.dayOfMonth}", 0.0, 280.0)
                     // drawer.text("${date.year}", 0.0, 360.0)

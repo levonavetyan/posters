@@ -25,10 +25,10 @@ fun main() = application {
     }
 
     program {
-       // val image = loadImage("file:data/images/Adele Photoshop/adele10.jpg")
+        // val image = loadImage("file:data/images/Adele Photoshop/adele10.jpg")
 
         val images = mutableListOf<ColorBuffer>()
-        val archive = File("data/archive/003")
+        val archive = File("data/archive/006")
 
 
         var lastChange = seconds
@@ -59,7 +59,7 @@ fun main() = application {
         var x = 0.0
         val font = FontImageMap.fromUrl("file:data/fonts/foopy_lightning-bolts/Thundara.otf", 143.0)
 
-        for (l in "Thunder") {
+        for (l in "Perfect") {
             drawer.fontMap = font
 
             val w = Writer(drawer)
@@ -73,7 +73,7 @@ fun main() = application {
 
         }
 
-       // glitch.separation
+        // glitch.separation
         val poster = compose {
 
             layer {
@@ -86,13 +86,13 @@ fun main() = application {
 
                 //mouse.scrolled.listen() {
 
-                    post(Separate()) {
-                        redShift = Vector2(0.0, 0.0) * glitch.separation
-                        greenShift = Vector2(1.0 / 40.0, 0.0) * glitch.separation
-                        blueShift = Vector2(0.0, 1.0 / 40.0) * glitch.separation
+                post(Separate()) {
+                    redShift = Vector2(0.0, 0.0) * glitch.separation
+                    greenShift = Vector2(1.0 / 40.0, 0.0) * glitch.separation
+                    blueShift = Vector2(0.0, 1.0 / 40.0) * glitch.separation
 
-                        //  }
-                    }
+                    //  }
+                }
 
 
 
@@ -112,26 +112,26 @@ fun main() = application {
                     if (seconds - lastChange > 1.0) {
 
 
-                      //  println("I am shuffling the images")
+                        //  println("I am shuffling the images")
                         lastChange = seconds
                         images.shuffle()
                     }
 
-                   // drawer.image(images[index%images.size])
+                    // drawer.image(images[index%images.size])
 
 
                     //drawer.fill = ColorRGBa.PINK
                     //
                     // drawer.drawStyle.colorMatrix = tint(ColorRGBa.PINK)
 
-                     // drawer.scale(1.0)
+                    // drawer.scale(1.0)
 
 
 
                     var index = 0
                     for (y in 0 until 2) {
                         for (x in 0 until 2) {
-                    drawer.image(images[index%images.size], x/600.0, y/800.0)
+                            drawer.image(images[index%images.size], x/600.0, y/800.0)
 
                             index ++
 
@@ -140,7 +140,7 @@ fun main() = application {
                         }
                     }
 
-                  //  }
+                    //  }
 
 
 
@@ -182,8 +182,8 @@ fun main() = application {
                     drawer.fill = ColorRGBa.WHITE
                     val date = LocalDateTime.now()
                     drawer.translate(40.0 , 250.0  )
-                  //  drawer.text("Imagine Dragons ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
-                  //  drawer.text("Thunder", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0 + 45.0)
+                    //  drawer.text("Imagine Dragons ", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0)
+                    //  drawer.text("Thunder", Math.cos(seconds) * width / 2.0 + width / 2.0, Math.sin(0.5 * seconds) * height / 2.0 + height / 2.0 + 45.0)
                     for (letter in letters) {
                         drawer.fill = ColorRGBa.WHITE.opacify(letter.opacity)
                         drawer.text(letter.letter , letter.x , letter.y)
@@ -219,17 +219,17 @@ fun main() = application {
                     letter.cancel()
 
                     //letter.animate("x", Math.random()*width,  1000, Easing.CubicInOut)
-                   // val d = Vector2(Math.random() * width, Math.random() * height) - Vector2(width / 2.0, height / 2.0)
-                  //  val dn = d.normalized
-                  //  val p = dn * 500.0 + Vector2(width / 2.0, height / 2.0)
+                    // val d = Vector2(Math.random() * width, Math.random() * height) - Vector2(width / 2.0, height / 2.0)
+                    //  val dn = d.normalized
+                    //  val p = dn * 500.0 + Vector2(width / 2.0, height / 2.0)
 
 
 
 
 
-                 //   letter.animate("x", letter.homeX, 0)
-                  //  letter.animate("y", letter.homeY, 0)
-                  //  letter.animate("opacity", 0.0, 0)
+                    //   letter.animate("x", letter.homeX, 0)
+                    //  letter.animate("y", letter.homeY, 0)
+                    //  letter.animate("opacity", 0.0, 0)
 
 
 
@@ -242,10 +242,10 @@ fun main() = application {
                     //letter.animate("x", p.x, duration-1000, Easing.CubicOut)
                     //letter.animate("y", p.y, duration-1000, Easing.CubicOut)
 
-                   // letter.animate("x", Math.random() * width, duration - 1000, Easing.CubicInOut)
+                    // letter.animate("x", Math.random() * width, duration - 1000, Easing.CubicInOut)
 
-                   letter.animate("y", Math.random() * height, duration - 1000, Easing.CubicInOut)
-                   letter.animate("dummy", 1.0, 1000000000, Easing.CubicInOut)
+                    letter.animate("y", Math.random() * height, duration - 1000, Easing.CubicInOut)
+                    letter.animate("dummy", 1.0, 1000000000, Easing.CubicInOut)
 
 
                 }

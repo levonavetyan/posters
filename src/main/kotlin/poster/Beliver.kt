@@ -215,13 +215,13 @@ fun main() = application {
                     letterIndex++
                     letter.animate("opacity", 1.0, 400)
 
-                  //  letter.animate("x", p.x, duration-1000, Easing.CubicOut)
-                   // letter.animate("y", p.y, duration-1000, Easing.CubicOut)
+                    letter.animate("x", p.x, duration-1000, Easing.CubicOut)
+                    letter.animate("y", p.y, duration-1000, Easing.CubicOut)
 
-                  //  letter.animate("x", Math.random() * width, duration - 1000, Easing.CubicInOut)
+                    letter.animate("x", Math.random() * width, duration - 1000, Easing.CubicInOut)
 
-                  //  letter.animate("y", Math.random() * height, duration - 1000, Easing.CubicInOut)
-                   // letter.animate("dummy", 1.0, 1000000000, Easing.CubicInOut)
+                    letter.animate("y", Math.random() * height, duration - 1000, Easing.CubicInOut)
+                    letter.animate("dummy", 1.0, 1000000000, Easing.CubicInOut)
 
 
                 }

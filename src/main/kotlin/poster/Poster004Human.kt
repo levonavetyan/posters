@@ -55,7 +55,7 @@ fun main() = application {
         val letters = mutableListOf<Letter>()
 
         var x = 0.0
-        val font = FontImageMap.fromUrl("file:data/fonts/chequered-ink_thundercover/electrical.ttf", 43.0)
+        val font = FontImageMap.fromUrl("file:data/fonts/Jost/Jost-600-Semi.ttf", 43.0)
 
         for (l in "HUMAN") {
             drawer.fontMap = font
@@ -66,7 +66,7 @@ fun main() = application {
             letters.add(Letter(l.toString(), x, height / 2.0))
 
             x += letterWidth
-            x += 30.0
+            x += 60.0
 
 
         }
@@ -119,11 +119,11 @@ fun main() = application {
                     //  }
                 }
                 draw {
-                    val font = FontImageMap.fromUrl("file:data/fonts/OpenSansCondensed-Bold.ttf", 144.0)
+                    val font = FontImageMap.fromUrl("file:data/fonts/Jost/Jost-600-Semi.ttf", 144.0)
                     drawer.fontMap = font
                     drawer.fill = ColorRGBa.WHITE
                     val date = LocalDateTime.now()
-                    drawer.translate(100.0, 230.0 )
+                    drawer.translate(100.0, 250.0 )
                     //drawer.text("BELIEVER", width/2.0, height/2.0)
 
                     for (letter in letters) {

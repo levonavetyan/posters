@@ -19,7 +19,7 @@ apply plugin: 'application'
 
 sourceCompatibility = 1.8
 project.ext.openrndrVersion = "0.3.34-rc2"
-project.ext.orxVersion = "0.0.27"
+project.ext.orxVersion = "0.0.29"
 project.ext.panelVersion = "0.3.15"
 
 repositories {
